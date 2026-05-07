@@ -1,0 +1,49 @@
+{
+  "companies": [
+    {
+      "name": "Alpha",
+      "cruise_speed_mph": 120,
+      "battery_capacity_kwh": 320,
+      "time_to_charge_hr": 0.6,
+      "energy_use_kwh_per_mile": 1.6,
+      "passenger_count": 4,
+      "fault_prob_per_hour": 0.25
+    },
+    {
+      "name": "Bravo",
+      "cruise_speed_mph": 100,
+      "battery_capacity_kwh": 100,
+      "time_to_charge_hr": 0.2,
+      "energy_use_kwh_per_mile": 1.5,
+      "passenger_count": 5,
+      "fault_prob_per_hour": 0.10
+    },
+    {
+      "name": "Charlie",
+      "cruise_speed_mph": 160,
+      "battery_capacity_kwh": 220,
+      "time_to_charge_hr": 0.8,
+      "energy_use_kwh_per_mile": 2.2,
+      "passenger_count": 3,
+      "fault_prob_per_hour": 0.05
+    },
+    {
+      "name": "Delta",
+      "cruise_speed_mph": 90,
+      "battery_capacity_kwh": 120,
+      "time_to_charge_hr": 0.62,
+      "energy_use_kwh_per_mile": 0.8,
+      "passenger_count": 2,
+      "fault_prob_per_hour": 0.22
+    },
+    {
+      "name": "Echo",
+      "cruise_speed_mph": 30,
+      "battery_capacity_kwh": 150,
+      "time_to_charge_hr": 0.3,
+      "energy_use_kwh_per_mile": 5.8,
+      "passenger_count": 2,
+      "fault_prob_per_hour": 0.61
+    }
+  ]
+}

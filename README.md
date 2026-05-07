@@ -20,6 +20,7 @@ Using GoogleTest
 ".\build-msvc-debug\Debug\eVTOL_Simulation_Tests.exe" --gtest_output="xml:.\Reports\eVTOL_Simulation_Tests.xml" --gtest_catch_exceptions=0
 
 ## Simulation Results
+Using "py process_data.py"
 
 | Aircraft | NbAircraft | AvgFlightTime | AvgDistance | AvgChargeTime | AvgNbFlight | AvgNbCharge | AvgWaiting |
 |---------|------------|----------------|-------------|----------------|--------------|--------------|-------------|

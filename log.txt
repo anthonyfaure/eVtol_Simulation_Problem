@@ -1,0 +1,136 @@
+Companies file: F:\workspace\Joby_eVTOL_Simulation_Problem\config\companies.json
+Aircraft: 20
+Chargers: 3
+Simulation time: 180
+Rate: 1
+----------------------
+"Alpha"
+	Speed: 120 mph
+	Battery: 320 kWh
+	Charge Time: 0.6 hours
+	Energy Use: 1.6 kWh per mile
+	Passengers: 4
+	Fault Prob: 0.25
+----------------------
+"Bravo"
+	Speed: 100 mph
+	Battery: 100 kWh
+	Charge Time: 0.2 hours
+	Energy Use: 1.5 kWh per mile
+	Passengers: 5
+	Fault Prob: 0.1
+----------------------
+"Charlie"
+	Speed: 160 mph
+	Battery: 220 kWh
+	Charge Time: 0.8 hours
+	Energy Use: 2.2 kWh per mile
+	Passengers: 3
+	Fault Prob: 0.05
+----------------------
+"Delta"
+	Speed: 90 mph
+	Battery: 120 kWh
+	Charge Time: 0.62 hours
+	Energy Use: 0.8 kWh per mile
+	Passengers: 2
+	Fault Prob: 0.22
+----------------------
+"Echo"
+	Speed: 30 mph
+	Battery: 150 kWh
+	Charge Time: 0.3 hours
+	Energy Use: 5.8 kWh per mile
+	Passengers: 2
+	Fault Prob: 0.61
+----------------------
+Number of company: 5
+----------------------
+[11:43:11] Aircraft:1 Delta started [totalTime 0]
+[11:43:11] Charger started (0) [totalTime 0]
+[11:43:11] Aircraft:0 Delta started [totalTime 0]
+[11:43:11] Aircraft:2 Bravo started [totalTime 0]
+[11:43:11] Aircraft:3 Charlie started [totalTime 0]
+[11:43:11] Aircraft:5 Delta started [totalTime 0]
+[11:43:11] Charger started (1) [totalTime 0]
+[11:43:11] Aircraft:4 Bravo started [totalTime 0]
+[11:43:11] Aircraft:6 Charlie started [totalTime 0]
+[11:43:11] Aircraft:7 Delta started [totalTime 0]
+[11:43:11] Aircraft:8 Delta started [totalTime 0]
+[11:43:11] Aircraft:9 Charlie started [totalTime 0]
+[11:43:11] Charger started (2) [totalTime 0]
+[11:43:11] Aircraft:10 Charlie started [totalTime 0]
+[11:43:11] Aircraft:11 Delta started [totalTime 0]
+[11:43:11] Aircraft:12 Echo started [totalTime 0]
+[11:43:11] Aircraft:13 Charlie started [totalTime 0]
+[11:43:11] Aircraft:14 Delta started [totalTime 0]
+[11:43:11] Aircraft:15 Charlie started [totalTime 0]
+[11:43:11] Aircraft:17 Alpha started [totalTime 0]
+[11:43:11] Aircraft:16 Charlie started [totalTime 0]
+[11:43:11] Aircraft:19 Charlie started [totalTime 0]
+[11:43:11] Aircraft:18 Bravo started [totalTime 0]
+[11:43:15] Aircraft:13 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:15] Aircraft:6 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:15] Aircraft:16 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:15] Aircraft:10 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:15] Aircraft:19 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:15] Aircraft:15 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:16] Aircraft:3 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:16] Aircraft:9 Waiting For Charger [battery 0kWh] [totalTime 38] - message sent
+[11:43:16] Aircraft:18 Waiting For Charger [battery 0kWh] [totalTime 40] - message sent
+[11:43:20] Aircraft:6 fully charged [220 kWh] after 48 steps [totalTime 86]
+[11:43:20] Aircraft:13 fully charged [220 kWh] after 48 steps [totalTime 86]
+[11:43:20] Aircraft:16 fully charged [220 kWh] after 48 steps [totalTime 86]
+[11:43:21] Aircraft:10 fully charged [220 kWh] after 48 steps [totalTime 96]
+[11:43:21] Aircraft:12 Waiting For Charger [battery 0kWh] [totalTime 52] - message sent
+[11:43:21] Aircraft:2 Waiting For Charger [battery 0kWh] [totalTime 40] - message sent
+[11:43:21] Aircraft:4 Waiting For Charger [battery 0kWh] [totalTime 40] - message sent
+[11:43:21] Aircraft:19 fully charged [220 kWh] after 48 steps [totalTime 96]
+[11:43:21] Aircraft:15 fully charged [220 kWh] after 48 steps [totalTime 97]
+[11:43:22] Aircraft:1 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:22] Aircraft:18 fully charged [100 kWh] after 13 steps [totalTime 110]
+[11:43:23] Aircraft:0 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:24] Aircraft:2 fully charged [100 kWh] after 13 steps [totalTime 122]
+[11:43:25] Aircraft:8 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:25] Aircraft:4 fully charged [100 kWh] after 13 steps [totalTime 134]
+[11:43:26] Aircraft:7 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:26] Aircraft:5 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:26] Aircraft:9 fully charged [220 kWh] after 48 steps [totalTime 145]
+[11:43:26] Aircraft:3 fully charged [220 kWh] after 48 steps [totalTime 145]
+[11:43:26] Aircraft:11 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:26] Aircraft:12 fully charged [150 kWh] after 18 steps [totalTime 150]
+[11:43:30] ***Aircraft:7 Delta [Battery: 0/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:0 nbChargeSession:0 waitingChargerTime:81
+[11:43:30] ***Aircraft:5 Delta [Battery: 0/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:0 nbChargeSession:0 waitingChargerTime:81
+[11:43:30] ***Aircraft:8 Delta [Battery: 96.7742/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:30 nbChargeSession:1 waitingChargerTime:51
+[11:43:30] ***Aircraft:9 Charlie [Battery: 14.6667/220 kWh] [FlightTime: 73/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:60
+[11:43:30] ***Aircraft:12 Echo [Battery: 63/150 kWh] [FlightTime: 82/181 min] CruiseSpeed 30 nbFlight:2 chargeTime:18 nbChargeSession:1 waitingChargerTime:81
+[11:43:30] ***Aircraft:11 Delta [Battery: 0/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:0 nbChargeSession:0 waitingChargerTime:81
+[11:43:30] ***Aircraft:3 Charlie [Battery: 14.6667/220 kWh] [FlightTime: 73/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:60
+[11:43:30] ***Aircraft:0 Delta [Battery: 112.903/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:35 nbChargeSession:1 waitingChargerTime:46
+[11:43:30] ***Aircraft:1 Delta [Battery: 112.903/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:35 nbChargeSession:1 waitingChargerTime:46
+[11:43:30] Aircraft:14 Waiting For Charger [battery 0kWh] [totalTime 100] - message sent
+[11:43:30] ***Aircraft:14 Delta [Battery: 0/120 kWh] [FlightTime: 100/181 min] CruiseSpeed 90 nbFlight:1 chargeTime:0 nbChargeSession:0 waitingChargerTime:81
+[11:43:30] Aircraft:17 Waiting For Charger [battery 0kWh] [totalTime 101] - message sent
+[11:43:30] ***Aircraft:17 Alpha [Battery: 0/320 kWh] [FlightTime: 101/181 min] CruiseSpeed 120 nbFlight:1 chargeTime:0 nbChargeSession:0 waitingChargerTime:80
+[11:43:30] Aircraft:6 Waiting For Charger [battery 0kWh] [totalTime 125] - message sent
+[11:43:30] ***Aircraft:6 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:33] Aircraft:13 Waiting For Charger [battery 0kWh] [totalTime 125] - message sent
+[11:43:33] ***Aircraft:13 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:33] Aircraft:16 Waiting For Charger [battery 0kWh] [totalTime 125] - message sent
+[11:43:33] ***Aircraft:16 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:34] Aircraft:19 Waiting For Charger [battery 0kWh] [totalTime 135] - message sent
+[11:43:34] ***Aircraft:19 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:37] Aircraft:10 Waiting For Charger [battery 0kWh] [totalTime 135] - message sent
+[11:43:37] ***Aircraft:10 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:37] Aircraft:15 Waiting For Charger [battery 0kWh] [totalTime 136] - message sent
+[11:43:37] ***Aircraft:15 Charlie [Battery: 0/220 kWh] [FlightTime: 76/181 min] CruiseSpeed 160 nbFlight:2 chargeTime:48 nbChargeSession:1 waitingChargerTime:57
+[11:43:39] Aircraft:18 Waiting For Charger [battery 0kWh] [totalTime 151] - message sent
+[11:43:39] ***Aircraft:18 Bravo [Battery: 0/100 kWh] [FlightTime: 80/181 min] CruiseSpeed 100 nbFlight:2 chargeTime:13 nbChargeSession:1 waitingChargerTime:88
+[11:43:42] Aircraft:2 Waiting For Charger [battery 0kWh] [totalTime 163] - message sent
+[11:43:42] ***Aircraft:2 Bravo [Battery: 0/100 kWh] [FlightTime: 80/181 min] CruiseSpeed 100 nbFlight:2 chargeTime:13 nbChargeSession:1 waitingChargerTime:88
+[11:43:42] Aircraft:4 Waiting For Charger [battery 0kWh] [totalTime 175] - message sent
+[11:43:42] ***Aircraft:4 Bravo [Battery: 0/100 kWh] [FlightTime: 80/181 min] CruiseSpeed 100 nbFlight:2 chargeTime:13 nbChargeSession:1 waitingChargerTime:88
+[11:43:46] ***Charger 2 shutting down
+[11:43:47] ***Charger 1 shutting down
+[11:43:47] ***Charger 0 shutting down
+--- EVTOL SIMULATION END ---

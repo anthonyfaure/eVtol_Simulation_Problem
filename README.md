@@ -7,18 +7,17 @@ The simulation runs for 3 hours of virtual time, while executing much faster in 
 
 ## Build
 
-Using Visual Studio Code
+Using Visual Studio Code (CMake Tools extension)
 
 ## Run
 
-".\build-msvc-debug\Debug\eVTOL_Simulation.exe" F:\workspace\Joby_eVTOL_Simulation_Problem\config\companies.json 20 3 180 1 > log.txt 2>&1
+".\build-msvc-release\Release\eVTOL_Simulation.exe" F:\workspace\Joby_eVTOL_Simulation_Problem\config\companies.json 20 3 180 1 > log.txt 2>&1
 
 ## Unit test
 
+Using GoogleTest
+
 ".\build-msvc-debug\Debug\eVTOL_Simulation_Tests.exe" --gtest_output="xml:.\Reports\eVTOL_Simulation_Tests.xml" --gtest_catch_exceptions=0
-
-## Result
-
 
 ## Simulation Results
 

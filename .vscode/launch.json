@@ -1,0 +1,37 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run eVTOL_Simulation (Debug)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-msvc-debug/Debug/eVTOL_Simulation.exe",
+            "args": [
+                "${workspaceFolder}/config/companies.json",
+                "20",
+                "3",
+                "180",
+                "1"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "preLaunchTask": ""
+        },
+        {
+            "name": "Run eVTOL_Simulation (Release)",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build-msvc-release/Debug/eVTOL_Simulation.exe",
+            "args": [
+                "${workspaceFolder}/config/companies.json",
+                "20",
+                "3",
+                "180",
+                "1"
+            ],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "preLaunchTask": ""
+        }
+    ]
+}

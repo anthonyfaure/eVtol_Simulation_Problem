@@ -9,13 +9,10 @@
 #include "Charger.h"
 
 Charger::Charger(int idIn, MpmcQueue<ChargeRequest> &queueIn)
-    : ident(idIn),
+    : id(idIn),
       chargerQueue(queueIn),
       chargeTime(0.0),
-      totalTime(0.0),
-      req(),
-      remainingSteps(0),
-      thread()
+      totalTime(0.0)
 {
 }
 
@@ -26,16 +23,20 @@ Charger::Charger(int idIn, MpmcQueue<ChargeRequest> &queueIn)
 //  ===========================================================================
 void Charger::run(double rate, int simTime)
 {
-    log("Charger started", " (", ident, ") [totalTime ", totalTime, "]");
+    log("Charger started", " (", id, ") [totalTime ", totalTime, "]");
+
+    // Charging time/steps based on simulation rate
+    int remainingSteps = 0;
 
     // Fixed‑rate loop
     using clock = std::chrono::steady_clock;
     const auto dt = std::chrono::duration<double>(0.1);
-    auto next = clock::now();
 
     // Check if aircraft request in queue
     while (auto opt = chargerQueue.pop()) //while (totalTime <= simTime)
     {
+        auto next = clock::now();
+        
         // Get the request
         ChargeRequest req = std::move(*opt);
 
@@ -43,7 +44,7 @@ void Charger::run(double rate, int simTime)
         req.doneWaitingCharger->store(true, std::memory_order_release);
 
         // Charging time/steps based on simulation rate
-        int remainingSteps = static_cast<int>(std::round(req.timeToCharge / rate));
+        remainingSteps = static_cast<int>(std::round(req.timeToCharge / rate));
 
         for (int i = 0; i < remainingSteps; ++i)
         {
@@ -55,5 +56,5 @@ void Charger::run(double rate, int simTime)
         }
     }
 
-    log("***Charger ", ident, " shutting down");
+    log("***Charger ", id, " shutting down");
 }

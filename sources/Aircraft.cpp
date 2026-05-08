@@ -10,22 +10,28 @@
 
 #include "Aircraft.h"
 
-Aircraft::Aircraft(int id, const AircraftSpecs &specsIn, MpmcQueue<ChargeRequest> &queueIn)
-    : ident(id),
+Aircraft::Aircraft(int idIn, const AircraftSpecs &specsIn, MpmcQueue<ChargeRequest> &queueIn)
+    : id(idIn),
       specs(specsIn),
       chargerQueue(queueIn),
       state(AircraftState::kFlying),
-      thread(),
       chargeTime(0.0),
-      batteryLevel(0.0),
+      batteryLevel(specsIn.batteryCapacity),
       flightTime(0.0),
       totalTime(0.0),
       waitingChargerTime(0.0),
-      nbChargeSession(0),
-      nbFlight(1),
+      batteryConsumption(0.0),
+      chargeSessionCount(0),
+      flightCount(0),
       waitingChargerDone(false),
       requestSent(false)
 {
+    // Charging Rate per minute (ex: Charlie, 0.8h = 48 minutes to charge 220kWh, 4.6kWh per min)
+    chargingRate = specs.batteryCapacity / (specs.timeToCharge * 60.0);
+
+    // Battery Level, each vehicle starts the simulation with a fully-charged battery
+    // Battery consumption per sim step (ex: Charlie, 2.2kWh/mile => 352kW => 5.86kW/min => 5.86 per sim step with rate==1)
+    batteryConsumption = (specs.energyUseAtCruise * specs.cruiseSpeed) / 60.0;
 }
 
 //  ===========================================================================
@@ -35,13 +41,7 @@ Aircraft::Aircraft(int id, const AircraftSpecs &specsIn, MpmcQueue<ChargeRequest
 //  ===========================================================================
 void Aircraft::run(double rate, int simTime)
 {
-    log("Aircraft:", ident, " ", specs.companyName, " started [totalTime ", totalTime, "]");
-
-    // Battery Level, each vehicle starts the simulation with a fully-charged battery
-    batteryLevel = specs.batteryCapacity;
-
-    // Battery consumption per sim step (ex: Charlie, 2.2kWh/mile => 352kW => 5.86kW/min => 5.86 per sim step with rate==1)
-    double batteryConsumption = (specs.energyUseAtCruise * specs.cruiseSpeed * rate) / 60.0; 
+    log("Aircraft:", id, " ", specs.companyName, " started [totalTime ", totalTime, "]");
 
     // Fixed‑rate loop
     using clock = std::chrono::steady_clock;
@@ -59,10 +59,13 @@ void Aircraft::run(double rate, int simTime)
         {
             // Each vehicle is airborne for the full use of the battery
             flightTime += rate;
-            batteryLevel -= batteryConsumption;
+            batteryLevel -= (batteryConsumption * rate);
 
             if (batteryLevel <= 0.0)
             {
+                // Flight completed
+                flightCount++;
+
                 // Vehicle immediately in line for the charger after running out of battery power
                 batteryLevel = 0.0;
                 state = AircraftState::kWaitingForCharger;
@@ -81,7 +84,7 @@ void Aircraft::run(double rate, int simTime)
             if (!requestSent)
             {
                 ChargeRequest req;
-                req.aircraftId = ident;
+                req.aircraftId = id;
                 req.batteryLevel = batteryLevel;
                 req.batteryCapacity = specs.batteryCapacity;
                 req.timeToCharge = specs.timeToCharge * 60.0; // min
@@ -91,13 +94,13 @@ void Aircraft::run(double rate, int simTime)
                 chargerQueue.push(req);
                 requestSent = true;                
 
-                log("Aircraft:", ident, " Waiting For Charger [battery ", batteryLevel, "kWh] [totalTime ", totalTime, "] - message sent");
+                log("Aircraft:", id, " Waiting For Charger [battery ", batteryLevel, "kWh] [totalTime ", totalTime, "] - message sent");
             }
 
             // When charger found, charging
             if (waitingChargerDone.exchange(false, std::memory_order_acq_rel))
             {
-                nbChargeSession++;
+                chargeSessionCount++;
 
                 requestSent = false;
 
@@ -113,9 +116,6 @@ void Aircraft::run(double rate, int simTime)
         {
             chargeTime += rate;
 
-            // Charging Rate per minute (ex: Charlie, 0.8h = 48 minutes to charge 220kWh, 4.6kWh per min)
-            double chargingRate = specs.batteryCapacity / (specs.timeToCharge * 60.0);
-
             // Battery Level update every sim step
             batteryLevel += (chargingRate * rate);
 
@@ -124,11 +124,11 @@ void Aircraft::run(double rate, int simTime)
             {
                 batteryLevel = specs.batteryCapacity;
 
-                log("Aircraft:", ident, " fully charged [", batteryLevel, " kWh] after ", chargeTime, " steps [totalTime ", totalTime, "]");
+                log("Aircraft:", id, " fully charged [", batteryLevel, " kWh] after ", chargeTime, " steps [totalTime ", totalTime, "]");
 
                 // Each vehicle instantaneously reaches Cruise Speed
                 state = AircraftState::kFlying;
-                nbFlight++;
+                flightCount++;
             }
 
             break;
@@ -143,7 +143,13 @@ void Aircraft::run(double rate, int simTime)
         // Fixed‑rate loop
         next += std::chrono::duration_cast<clock::duration>(dt);
         std::this_thread::sleep_until(next);
-    }    
+    }
+
+    // Current flight ended
+    if (state == AircraftState::kFlying)
+    {
+        flightCount++;
+    }
 
     // Keep track of the following statistics per vehicle type:
 	// average flight time per flight
@@ -153,14 +159,16 @@ void Aircraft::run(double rate, int simTime)
     // For example, if there are 2 vehicles carrying 4 passengers on a vehicle that cruises for 1 hour at 100 mph,
     // total number of passenger miles is 2 * 4 * 1 * 100 = 800.
 
-    log("***Aircraft:", ident, " ",specs.companyName, " ",
+    log("***Aircraft:", id, " ",specs.companyName, " ",
         "[Battery: ", batteryLevel, "/", specs.batteryCapacity, " kWh] ",
         "[FlightTime: ", flightTime, "/", totalTime, " min] ",
         "CruiseSpeed ", specs.cruiseSpeed,
-        " nbFlight:", nbFlight,
+        " flightCount:", flightCount,
         " chargeTime:", chargeTime,
-        " nbChargeSession:", nbChargeSession,
-        " waitingChargerTime:", waitingChargerTime);
+        " chargeSessionCount:", chargeSessionCount,
+        " waitingChargerTime:", waitingChargerTime,
+        " totalNumberOfFaults:", specs.faultProbability*flightTime/60.0,
+        " totalNumberOfPassengerMiles:", specs.passengerCount*flightTime*specs.cruiseSpeed/60.0);
 }
 
 AircraftState Aircraft::getState() const

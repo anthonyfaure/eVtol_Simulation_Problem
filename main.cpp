@@ -85,7 +85,7 @@ int main(int argc, char* argv[])
     // ------------------------------------------------------------------------
     // MPMC queue
     // ------------------------------------------------------------------------
-    MpmcQueue<ChargeRequest> charge_queue(numChargers);
+    MpmcQueue<ChargeRequest> charge_queue(numAircraft);
 
     // ------------------------------------------------------------------------
     // Chargers

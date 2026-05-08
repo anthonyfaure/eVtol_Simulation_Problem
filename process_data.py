@@ -16,6 +16,8 @@ def process_aircraft_file(input_file,
         "total_waiting_time": 0.0,
         "total_flights": 0,
         "total_charge_sessions": 0,
+        "total_faults": 0.0,
+        "total_passenger_miles": 0.0,
         "count": 0
     })
 
@@ -52,10 +54,12 @@ def process_aircraft_file(input_file,
             stats_match = re.search(
                 r"\[FlightTime:\s*([\d.]+)/[\d.]+\s*min\]\s*"
                 r"CruiseSpeed\s*([\d.]+)\s*"
-                r"nbFlight:(\d+)\s*"
+                r"flightCount:(\d+)\s*"
                 r"chargeTime:([\d.]+)\s*"
-                r"nbChargeSession:(\d+)\s*"
-                r"waitingChargerTime:([\d.]+)",
+                r"chargeSessionCount:(\d+)\s*"
+                r"waitingChargerTime:([\d.]+)\s*"
+                r"totalNumberOfFaults\s*([\d.]+)\s*"
+                r"totalNumberOfPassengerMiles\s*([\d.]+)",
                 line
             )
 
@@ -67,6 +71,8 @@ def process_aircraft_file(input_file,
                 charge_time = float(stats_match.group(4))
                 nb_charge_sessions = int(stats_match.group(5))
                 waiting_time = float(stats_match.group(6))
+                total_faults = float(stats_match.group(7))
+                total_passenger_miles = float(stats_match.group(8))
 
                 # Distance = speed × time(hours)
                 distance = cruise_speed * (flight_time / 60.0)
@@ -78,6 +84,8 @@ def process_aircraft_file(input_file,
                 stats[aircraft_type]["total_waiting_time"] += waiting_time
                 stats[aircraft_type]["total_flights"] += nb_flights
                 stats[aircraft_type]["total_charge_sessions"] += nb_charge_sessions
+                stats[aircraft_type]["total_faults"] += total_faults
+                stats[aircraft_type]["total_passenger_miles"] += total_passenger_miles
                 stats[aircraft_type]["count"] += 1
 
     # =========================================================
@@ -106,13 +114,15 @@ def process_aircraft_file(input_file,
             f"{'AvgFlightTime':>18}"
             f"{'AvgDistance':>18}"
             f"{'AvgChargeTime':>18}"
-            f"{'AvgNbFlight':>15}"
-            f"{'AvgNbCharge':>18}"
-            f"{'AvgWaiting':>18}\n"
+            f"{'AvgFlight':>15}"
+            f"{'AvgChargeSession':>18}"
+            f"{'AvgWaitingCharger':>20}"
+            f"{'TotalNumOfFaults':>20}"
+            f"{'TotalNumOfPassengerMiles':>25}\n"
         )
 
         f.write(header)
-        f.write("-" * 135 + "\n")
+        f.write("-" * 175 + "\n")
 
         for aircraft_type in sorted_types:
 
@@ -156,6 +166,18 @@ def process_aircraft_file(input_file,
                 s["total_waiting_time"] / s["count"]
                 if s["count"] > 0 else 0
             )
+            
+            # Total Number Of Faults
+            total_flts = (
+                s["total_faults"]
+                if s["count"] > 0 else 0
+            )
+
+            # Total Number Of Passenger Miles
+            total_pass_miles = (
+                s["total_passenger_miles"]
+                if s["count"] > 0 else 0
+            )            
 
             line = (
                 f"{aircraft_type:<10}"
@@ -165,7 +187,9 @@ def process_aircraft_file(input_file,
                 f"{avg_charge_time:>18.2f}"
                 f"{avg_nb_flight:>15.2f}"
                 f"{avg_nb_charge:>18.2f}"
-                f"{avg_waiting:>18.2f}\n"
+                f"{avg_waiting:>18.2f}"
+                f"{total_flts:>18.2f}"
+                f"{total_pass_miles:>18.2f}\n"                
             )
 
             f.write(line)

@@ -7,7 +7,7 @@
 #include <atomic>
 #include <thread>
 
-#include "constants.h"
+#include "ChargeRequest.h"
 #include "Logger.h"
 #include "MpmcQueue.h"
 
@@ -41,28 +41,29 @@ struct AircraftSpecs
 // ----------------------------------------------------------------------------
 class Aircraft {
 public:
-    Aircraft(int id, const AircraftSpecs &specs, MpmcQueue<ChargeRequest>& queue);
+    Aircraft(int idIn, const AircraftSpecs &specsIn, MpmcQueue<ChargeRequest>& queueIn);
 
     void run(double rate, int simTime);
 
     AircraftState getState() const;
 
 private:
-    int ident;
+    int id;
     AircraftSpecs specs;
     MpmcQueue<ChargeRequest> &chargerQueue;
     
     AircraftState state;
-    std::thread thread;
 
     double batteryLevel;
     double chargeTime;
     double flightTime;
     double totalTime;
     double waitingChargerTime;
+    double chargingRate;
+    double batteryConsumption;
 
-    int nbChargeSession;
-    int nbFlight;
+    int chargeSessionCount;
+    int flightCount;
 
     std::atomic<bool> waitingChargerDone{false};
     bool requestSent;

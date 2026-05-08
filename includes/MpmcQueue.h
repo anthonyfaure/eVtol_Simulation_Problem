@@ -89,7 +89,7 @@ private:
     mutable std::mutex      mutex_;
     std::condition_variable cv_not_empty_;
     std::condition_variable cv_not_full_;
-    std::atomic<bool>       stopped_{false};
+    bool                    stopped_ = false;
 };
 
 #endif // MPMCQUEUE_H

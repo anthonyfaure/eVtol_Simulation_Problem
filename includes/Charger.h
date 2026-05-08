@@ -3,27 +3,22 @@
 
 #include <thread>
 
-#include "constants.h"
+#include "ChargeRequest.h"
 #include "Logger.h"
 #include "MpmcQueue.h"
 
 class Charger {
 public:
-    Charger(int id, MpmcQueue<ChargeRequest>& queue);
+    Charger(int idIn, MpmcQueue<ChargeRequest>& queueIn);
 
     void run(double rate, int simTime);
 
 private:
-    int ident;
+    int id;
     MpmcQueue<ChargeRequest> &chargerQueue;
 
     double chargeTime;
     double totalTime;
-
-    ChargeRequest req;
-    int remainingSteps;
-
-    std::thread thread;
 };
 
 #endif // CHARGER_H
